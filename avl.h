@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,11 +22,13 @@ class AVLTree {
 	void doRotation( node< itemType > *&root ); // move function
 	bool search( node< itemType > *root , itemType target );
 	int getNumberOfNodes( node< itemType > *root );
+	itemType findPredecessor( node< itemType > *root , itemType target ) const;
 
 	void inorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
 	void preorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
 	void postorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
 	void levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+	int consanguinity( node< itemType > *root , int target1 , int target2 );
 
 	public:
 	AVLTree();
@@ -36,6 +39,8 @@ class AVLTree {
 	bool searchHelper( itemType target );
 	void clearTreeHelper();
 	int getNumberOfNodesHelper();
+	itemType findPredecessorHelper( itemType target );
+	int consanguinityHelper( int target1 , int target2 );
 
 	void inorderTraversalHelper( void visit( node< itemType > &record ) );
 	void preorderTraversalHelper( void visit( node< itemType > &record ) );
@@ -56,10 +61,6 @@ AVLTree< itemType >::~AVLTree() {
 template< typename itemType >
 node< itemType >* AVLTree< itemType >::leftRotation( node< itemType > *up , node< itemType > *middle ) {
 	node< itemType > *temp = middle->getLeftChild();
-	//cout << "l rotate" << endl;
-	//cout << up << ' ' << middle << ' ' << temp << endl;
-	//cout << ( up == nullptr ? -1 : up->getData() ) << ' ' << ( middle == nullptr ? -1 : middle->getData() ) << ' ' << ( temp == nullptr ? -1 : temp->getData() ) << endl;
-	//cout << ( up == nullptr ? -1 : up->getHeight() ) << ' ' << ( middle == nullptr ? -1 : middle->getHeight() ) << endl;
 
 	up->setRightChild( temp );
 	middle->setLeftChild( up );
@@ -67,28 +68,18 @@ node< itemType >* AVLTree< itemType >::leftRotation( node< itemType > *up , node
 	up->setHeight( up->getMaxHeight() );
 	middle->setHeight( middle->getMaxHeight() );
 
-	//cout << up << ' ' << middle << endl;
-	//cout << ( up == nullptr ? -1 : up->getHeight() ) << ' ' << ( middle == nullptr ? -1 : middle->getHeight() ) << endl;
-
 	return middle;
 }
 
 template< typename itemType >
 node< itemType >* AVLTree< itemType >::rightRotation( node< itemType > *up , node< itemType > *middle ) {
 	node< itemType > *temp = middle->getRightChild();
-	//cout << "r rotate" << endl;
-	//cout << up << ' ' << middle << ' ' << temp << endl;
-	//cout << ( up == nullptr ? -1 : up->getData() ) << ' ' << ( middle == nullptr ? -1 : middle->getData() ) << ' ' << ( temp == nullptr ? -1 : temp->getData() ) << endl;
-	//cout << ( up == nullptr ? -1 : up->getHeight() ) << ' ' << ( middle == nullptr ? -1 : middle->getHeight() ) << endl;
 
 	up->setLeftChild( temp );
 	middle->setRightChild( up );
 
 	up->setHeight( up->getMaxHeight() );
 	middle->setHeight( middle->getMaxHeight() );
-
-	//cout << up << ' ' << middle << endl;
-	//cout << ( up == nullptr ? -1 : up->getHeight() ) << ' ' << ( middle == nullptr ? -1 : middle->getHeight() ) << endl;
 
 	return middle;
 }
@@ -184,12 +175,55 @@ bool AVLTree< itemType >::search( node< itemType > *root , itemType target ) {
 
 	if ( root->getData() > target ) return this->search( root->getLeftChild() , target );
 	if ( root->getData() < target ) return this->search( root->getRightChild() , target );
+
+	return false;
+}
+
+template< typename itemType >
+itemType AVLTree< itemType >::findPredecessor( node< itemType > *root , itemType target ) const {
+	if ( root == nullptr ) return INT_MIN;
+
+	if ( root->getData() > target ) {
+		return max( INT_MIN , findPredecessor( root->getLeftChild() , target ) );
+	}
+	else {
+		return max( root->getData() , findPredecessor( root->getRightChild() , target ) );
+	}
+}
+
+template< typename itemType >
+itemType AVLTree< itemType >::findPredecessorHelper( itemType target ) {
+	itemType temp = this->findPredecessor( this->root , target );
+
+	return ( temp == INT_MIN ? target : temp );
 }
 
 template< typename itemType >
 bool AVLTree< itemType >::insertHelper( itemType newItem ) {
 	this->root = this->insert( this->root , new node< itemType >( newItem ) );
 	return true;
+}
+
+template< typename itemType >
+int AVLTree< itemType >::consanguinity( node< itemType > *root , int target1 , int target2 ) {
+	if ( root == nullptr ) {
+		return INT_MAX;
+	}
+	if ( root->getData() == target1 || root->getData() == target2 ) {
+		return 0;
+	}
+
+	if ( root->getData() > target1 ) return 1 + this->consanguinity( root->getLeftChild() , target1 , target2 );
+	if ( root->getData() < target1 ) return 1 + this->consanguinity( root->getRightChild() , target1 , target2 );
+
+	if ( root->getData() > target2 ) return 1 + this->consanguinity( root->getLeftChild() , target1 , target2 );
+	if ( root->getData() < target2 ) return 1 + this->consanguinity( root->getRightChild() , target1 , target2 );
+
+}
+
+template< typename itemType >
+int AVLTree< itemType >::consanguinityHelper( int target1 , int target2 ) {
+	return this->consanguinity( this->root , target1 , target2 );
 }
 
 template< typename itemType >
