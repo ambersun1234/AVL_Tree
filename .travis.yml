@@ -1,4 +1,13 @@
-language: cpp
-compiler:
-    - g++
+language: generic
+os: linux
+
+addons:
+  apt:
+  sources:
+    - ubuntu-toolchain-r-test
+  packages:
+    - g++-5.4
+
+env: CXX=g++-5.4 CC=gcc-5.4
+
 script: make
