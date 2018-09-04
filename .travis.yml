@@ -1,13 +1,28 @@
 language: generic
-os: linux
 
-addons:
-  apt:
-  sources:
-    - ubuntu-toolchain-r-test
-  packages:
-    - g++-5.4
+matrix:
+  include:
+    - os: linux
+	  addons:
+	    apt:
+		  sources:
+		    - ubuntu-toolchain-r-test
+		  packages:
+		    - g++-4.9
+	  env:
+	    - MATRIX_EVAL="CXX=g++-4.9 && CC=gcc-4.9"
 
-env: CXX=g++-5.4 CC=gcc-5.4
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5.4
+      env:
+	    - MATRIX_EVAL="CXX=g++-5.4 && CC=gcc-5.4"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
 
 script: make
