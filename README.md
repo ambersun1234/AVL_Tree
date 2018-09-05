@@ -4,11 +4,11 @@
 simple practice of AVL tree
 ### Clone repo
 ```=1
-git clone https://github.com/ambersun1234/AVL-Tree.git .
+git clone https://github.com/ambersun1234/AVL_Tree.git .
 ```
 ### Compile source code
 ```=1
-cd AVL-Tree
+cd AVL_Tree
 make
 ```
 ### Running
