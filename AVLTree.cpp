@@ -20,6 +20,7 @@ int main( int argc , const char *argv[] ) {
 
 	while ( true ) {
 		menu();
+		cout << "> ";
 		cin >> command;
 
 		if ( command == "a" || command == "A" ) { // done
