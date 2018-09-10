@@ -68,3 +68,8 @@ before_install:
 script:
   - make
   - make test
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

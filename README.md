@@ -13,7 +13,7 @@ make
 ```
 ### Running
 ```=1
-./result
+./avl_tree
 ```
 ### Testing
 ```=1
