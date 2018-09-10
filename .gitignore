@@ -1,4 +1,6 @@
 *.o
 *.gch
 *.log
-result
+*.a
+*_unittest
+avl_tree
