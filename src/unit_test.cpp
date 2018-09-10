@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <gtest/gtest.h>
 #include "node.h"
 
@@ -16,6 +17,11 @@ TYPED_TEST( node_test , constructor ) {
     EXPECT_EQ( nullptr , n.getRightChild() );
 }
 
+=======
+#include "gtest/gtest.h"
+#include "node.h"
+
+>>>>>>> deda7e4... setup unit-test
 GTEST_API_ int main( int argc , char **argv ) {
 	testing::InitGoogleTest( &argc , argv );
 	return RUN_ALL_TESTS();
