@@ -3,4 +3,15 @@
 *.log
 *.a
 *_unittest
+<<<<<<< HEAD
 avl_tree
+=======
+<<<<<<< HEAD
+=======
+avl_tree
+<<<<<<< HEAD
+>>>>>>> deda7e4... setup unit-test
+=======
+.gitignore*
+>>>>>>> e3b38b4... a
+>>>>>>> 21af28eb5b55cded46d363335699f73ffc803380

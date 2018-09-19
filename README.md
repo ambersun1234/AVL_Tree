@@ -15,5 +15,9 @@ make
 ```=1
 ./result
 ```
+### Testing
+```=1
+make test
+```
 ### License
 + This project is licensed under MIT License - see the [LICENSE](https://github.com/ambersun1234/AVL_Tree/blob/master/LICENSE) file for detail

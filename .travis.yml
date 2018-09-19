@@ -46,16 +46,6 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-3.9
-          packages:
-            - clang-3.9
-      env:
-        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9 && CXXFLAGS+=-stdlib=libc++"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
             - llvm-toolchain-trusty-4.0
           packages:
             - clang-4.0
@@ -73,9 +63,6 @@ matrix:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 before_install:
-  - apt-get update
-  - apt-get install libc++-dev
-  - cd "${TRAVIS_BUILD_DIR}"
   - eval "${MATRIX_EVAL}"
 
 script:
