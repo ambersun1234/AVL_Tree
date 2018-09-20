@@ -41,7 +41,8 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 all : $(TESTS)
 
 clean :
-	rm -f gtest_main.a $(TESTS) *.o *.gch
+	rm -rf gtest_main.a $(TESTS) *.o *.gch
+	rm ./src/*.o
 
 test :
 	find . -name '*_unittest' -exec {} \;
