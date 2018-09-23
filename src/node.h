@@ -23,8 +23,6 @@ class node {
 		void setHeight( int h );
 
 		bool isLeaf();
-		void increaseHeight();
-		void decreaseHeight();
 		int getMaxHeight();
 		bool unbalanced();
 };
@@ -100,16 +98,6 @@ void node< itemType >::setHeight( int h ) {
 template< typename itemType >
 bool node< itemType >::isLeaf() {
 	return this->left == nullptr && this->right == nullptr;
-}
-
-template< typename itemType >
-void node< itemType >::increaseHeight() {
-	this->height++;
-}
-
-template< typename itemType >
-void node< itemType >::decreaseHeight() {
-	this->height--;
 }
 
 template< typename itemType >

@@ -42,6 +42,8 @@ TEST_F( nodeTest , setter ) {
 	node_1->setRightChild( node_int_children_2 );
 	EXPECT_GT( node_1->getRightChild()->getData() , 26 );
 
+	EXPECT_EQ( node_1->getHeight() , 1 );
+
 	EXPECT_TRUE( node_2->getLeftChild() == nullptr );
 	node_2->setLeftChild( node_double_children_2 );
 	EXPECT_EQ( node_2->getLeftChild()->getHeight() , 1 );
@@ -49,6 +51,8 @@ TEST_F( nodeTest , setter ) {
 	EXPECT_EQ( node_2->getRightChild() , nullptr );
 	node_2->setRightChild( node_double_children_1 );
 	EXPECT_LT( node_2->getRightChild()->getData() , 66.7 );
+
+	EXPECT_EQ( node_2->getHeight() , 1 );
 }
 
 TEST_F( nodeTest , isLeaf ) {
@@ -77,6 +81,11 @@ TEST_F( nodeTest , getMaxHeight ) {
 
 	node_2->setLeftChild( nullptr );
 	EXPECT_EQ( node_2->getMaxHeight() , 1 );
+}
+
+TEST_F( nodeTest , unbalanced ) {
+	EXPECT_FALSE( node_1->unbalanced() );
+	EXPECT_FALSE( node_2->unbalanced() );
 }
 
 // avl test fixure

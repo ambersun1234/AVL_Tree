@@ -1,10 +1,10 @@
 # AVL-Tree
-[![Build Status](https://travis-ci.com/ambersun1234/AVL_Tree.svg?branch=master)](https://travis-ci.com/ambersun1234/AVL_Tree)
+[![Build Status](https://travis-ci.com/ambersun1234/AVL_Tree.svg?branch=master)](https://travis-ci.com/ambersun1234/AVL_Tree) [![Coverage Status](https://coveralls.io/repos/github/ambersun1234/AVL_Tree/badge.svg?branch=master)](https://coveralls.io/github/ambersun1234/AVL_Tree?branch=master)
 <br>
 simple practice of AVL tree
 ### Clone repo
 ```=1
-git clone https://github.com/ambersun1234/AVL_Tree.git .
+git clone https://github.com/ambersun1234/AVL_Tree.git
 ```
 ### Compile source code
 ```=1
