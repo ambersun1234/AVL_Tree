@@ -10,6 +10,8 @@
 	#include "node.h"
 #endif
 
+#include "gtest/gtest_prod.h"
+
 using namespace std;
 
 template< typename itemType >
@@ -18,6 +20,7 @@ class AVLTree {
 		node< itemType > *root;
 		node< itemType >* leftRotation( node< itemType > *up , node< itemType > *middle );
 		node< itemType >* rightRotation( node< itemType > *up , node< itemType > *middle );
+		FRIEND_TEST( avlTest , privateContent ); // must be in the same namespace
 
 	protected:
 		node< itemType >* findSmallestNode( node< itemType > *root , itemType &returnValue );

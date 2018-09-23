@@ -1,5 +1,5 @@
 # AVL-Tree
-[![Build Status](https://travis-ci.org/ambersun1234/AVL_Tree.svg?branch=master)](https://travis-ci.org/ambersun1234/AVL_Tree)
+[![Build Status](https://travis-ci.com/ambersun1234/AVL_Tree.svg?branch=master)](https://travis-ci.com/ambersun1234/AVL_Tree)
 <br>
 simple practice of AVL tree
 ### Clone repo
