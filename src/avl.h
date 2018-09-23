@@ -1,52 +1,57 @@
-#include "node.h"
+#define avl_h
 
 #include <queue>
 #include <iostream>
 #include <algorithm>
 #include <climits>
 
+#ifndef node_h
+	#define node_h
+	#include "node.h"
+#endif
+
 using namespace std;
 
 template< typename itemType >
 class AVLTree {
 	private:
-	node< itemType > *root;
-	node< itemType >* leftRotation( node< itemType > *up , node< itemType > *middle );
-	node< itemType >* rightRotation( node< itemType > *up , node< itemType > *middle );
+		node< itemType > *root;
+		node< itemType >* leftRotation( node< itemType > *up , node< itemType > *middle );
+		node< itemType >* rightRotation( node< itemType > *up , node< itemType > *middle );
 
 	protected:
-	node< itemType >* findSmallestNode( node< itemType > *root , itemType &returnValue );
-	node< itemType >* findSmallestNodeHelper( node< itemType > *root , itemType &returnValue );
-	node< itemType >* insert( node< itemType > *root , node< itemType > *newNode );
-	node< itemType >* remove( node< itemType > *root , itemType target );
-	void clearTree( node< itemType > *root );
-	void doRotation( node< itemType > *&root ); // move function
-	bool search( node< itemType > *root , itemType target );
-	int getNumberOfNodes( node< itemType > *root );
-	itemType findPredecessor( node< itemType > *root , itemType target ) const;
+		node< itemType >* findSmallestNode( node< itemType > *root , itemType &returnValue );
+		node< itemType >* findSmallestNodeHelper( node< itemType > *root , itemType &returnValue );
+		node< itemType >* insert( node< itemType > *root , node< itemType > *newNode );
+		node< itemType >* remove( node< itemType > *root , itemType target );
+		void clearTree( node< itemType > *root );
+		void doRotation( node< itemType > *&root ); // move function
+		bool search( node< itemType > *root , itemType target );
+		int getNumberOfNodes( node< itemType > *root );
+		itemType findPredecessor( node< itemType > *root , itemType target ) const;
 
-	void inorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-	void preorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-	void postorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-	void levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-	int consanguinity( node< itemType > *root , int target1 , int target2 );
+		void inorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+		void preorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+		void postorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+		void levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+		int consanguinity( node< itemType > *root , int target1 , int target2 );
 
 	public:
-	AVLTree();
-	~AVLTree();
+		AVLTree();
+		~AVLTree();
 
-	bool insertHelper( itemType newItem );
-	bool removeHelper( itemType target );
-	bool searchHelper( itemType target );
-	void clearTreeHelper();
-	int getNumberOfNodesHelper();
-	itemType findPredecessorHelper( itemType target );
-	int consanguinityHelper( int target1 , int target2 );
+		bool insertHelper( itemType newItem );
+		bool removeHelper( itemType target );
+		bool searchHelper( itemType target );
+		void clearTreeHelper();
+		int getNumberOfNodesHelper();
+		itemType findPredecessorHelper( itemType target );
+		int consanguinityHelper( int target1 , int target2 );
 
-	void inorderTraversalHelper( void visit( node< itemType > &record ) );
-	void preorderTraversalHelper( void visit( node< itemType > &record ) );
-	void postorderTraversalHelper( void visit( node< itemType > &record ) );
-	void levelorderTraversalHelper( void visit( node< itemType > &record ) );
+		void inorderTraversalHelper( void visit( node< itemType > &record ) );
+		void preorderTraversalHelper( void visit( node< itemType > &record ) );
+		void postorderTraversalHelper( void visit( node< itemType > &record ) );
+		void levelorderTraversalHelper( void visit( node< itemType > &record ) );
 };
 
 template< typename itemType >

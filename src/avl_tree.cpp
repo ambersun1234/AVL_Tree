@@ -1,7 +1,15 @@
-﻿#include "avl.h"
-
 #include <iostream>
 #include <string>
+
+#ifndef node_h
+	#define node_h
+	#include "node.h"
+#endif
+
+#ifndef avl_h
+	#define avl_h
+	#include "avl.h"
+#endif
 
 using namespace std;
 

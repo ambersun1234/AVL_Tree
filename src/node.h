@@ -1,34 +1,32 @@
-#include <iostream>
-
-using namespace std;
+#define node_h
 
 template< typename itemType >
 class node {
 	private:
-	itemType data;
-	node< itemType > *left , *right;
-	int height;
+		itemType data;
+		node< itemType > *left , *right;
+		int height;
 
 	public:
-	node( itemType input );
-	
-	node< itemType >* getLeftChild();
-	node< itemType >* getRightChild();
-	itemType getData();
-	int getHeight();
-	int getLeftChildHeight();
-	int getRightChildHeight();
+		node( itemType input );
 
-	void setLeftChild( node< itemType > *pointer );
-	void setRightChild( node< itemType > *pointer );
-	void setData( itemType newItem );
-	void setHeight( int h );
+		node< itemType >* getLeftChild();
+		node< itemType >* getRightChild();
+		itemType getData();
+		int getHeight();
+		int getLeftChildHeight();
+		int getRightChildHeight();
 
-	bool isLeaf();
-	void increaseHeight();
-	void decreaseHeight();
-	int getMaxHeight();
-	bool unbalanced();
+		void setLeftChild( node< itemType > *pointer );
+		void setRightChild( node< itemType > *pointer );
+		void setData( itemType newItem );
+		void setHeight( int h );
+
+		bool isLeaf();
+		void increaseHeight();
+		void decreaseHeight();
+		int getMaxHeight();
+		bool unbalanced();
 };
 
 template< typename itemType >

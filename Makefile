@@ -42,7 +42,7 @@ all : $(TESTS)
 
 clean :
 	rm -rf gtest_main.a $(TESTS) *.o *.gch
-	rm ./src/*.o
+	rm -f ./src/*.o
 
 test :
 	find . -name '*_unittest' -exec {} \;
