@@ -14,6 +14,8 @@
 
 using namespace std;
 
+ostringstream oss_level;
+
 template< typename itemType >
 class AVLTree {
 	private:
@@ -33,10 +35,10 @@ class AVLTree {
 		int getNumberOfNodes( node< itemType > *root );
 		itemType findPredecessor( node< itemType > *root , itemType target ) const;
 
-		void inorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-		void preorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-		void postorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
-		void levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) );
+		void inorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) );
+		void preorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) );
+		void postorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) );
+		void levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) );
 		int consanguinity( node< itemType > *root , int target1 , int target2 );
 
 	public:
@@ -51,10 +53,10 @@ class AVLTree {
 		itemType findPredecessorHelper( itemType target );
 		int consanguinityHelper( int target1 , int target2 );
 
-		void inorderTraversalHelper( void visit( node< itemType > &record ) );
-		void preorderTraversalHelper( void visit( node< itemType > &record ) );
-		void postorderTraversalHelper( void visit( node< itemType > &record ) );
-		void levelorderTraversalHelper( void visit( node< itemType > &record ) );
+		void inorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) );
+		void preorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) );
+		void postorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) );
+		void levelorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) );
 };
 
 template< typename itemType >
@@ -319,51 +321,51 @@ int AVLTree< itemType >::getNumberOfNodes( node< itemType > *root ) {
 }
 
 template< typename itemType >
-void AVLTree< itemType >::inorderTraversalHelper( void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::inorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) ) {
 	this->inorderTraversal( this->root , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::preorderTraversalHelper( void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::preorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) ) {
 	this->preorderTraversal( this->root , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::postorderTraversalHelper( void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::postorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) ) {
 	this->postorderTraversal( this->root , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::levelorderTraversalHelper( void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::levelorderTraversalHelper( void visit( node< itemType > &record , ostream& os ) ) {
 	this->levelorderTraversal( this->root , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::inorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::inorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) ) {
 	if ( root == nullptr ) return;
 	this->inorderTraversal( root->getLeftChild() , visit );
-	visit( *root );
+	visit( *root , cout );
 	this->inorderTraversal( root->getRightChild() , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::preorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::preorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) ) {
 	if ( root == nullptr ) return;
-	visit( *root );
+	visit( *root , cout );
 	this->preorderTraversal( root->getLeftChild() , visit );
 	this->preorderTraversal( root->getRightChild() , visit );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::postorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::postorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) ) {
 	if ( root == nullptr ) return;
 	this->postorderTraversal( root->getLeftChild() , visit );
 	this->postorderTraversal( root->getRightChild() , visit );
-	visit( *root );
+	visit( *root , cout );
 }
 
 template< typename itemType >
-void AVLTree< itemType >::levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record ) ) {
+void AVLTree< itemType >::levelorderTraversal( node< itemType > *root , void visit( node< itemType > &record , ostream& os ) ) {
 	queue< node< itemType >* > myQueue;
 	node< itemType > *temp;
 
@@ -373,7 +375,7 @@ void AVLTree< itemType >::levelorderTraversal( node< itemType > *root , void vis
 		temp = myQueue.front();
 		myQueue.pop();
 
-		visit( *temp );
+		visit( *temp , oss_level );
 
 		if ( temp->getLeftChild() != nullptr ) myQueue.push( temp->getLeftChild() );
 		if ( temp->getRightChild() != nullptr ) myQueue.push( temp->getRightChild() );

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #ifndef node_h
@@ -13,7 +14,7 @@
 
 using namespace std;
 
-void display( node< int > &record ) {
+void display( node< int > &record , ostream& os = cout ) {
 	cout << "   " << record.getData() << ',' << record.getHeight();
 }
 

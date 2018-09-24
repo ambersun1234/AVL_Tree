@@ -1,3 +1,9 @@
+#include <iostream>
+#include <sstream>
+#include <string>
+
+using namespace std;
+
 #include "gtest/gtest.h"
 
 #ifndef node_h
@@ -9,6 +15,8 @@
 	#define avl_h
 	#include "avl.h"
 #endif
+
+extern ostringstream oss_level; // definition in avl.h lin 17
 
 // node test fixure
 class nodeTest : public testing::Test {
@@ -95,6 +103,12 @@ class avlTest : public testing::Test {
 		// virtual void TearDown()
 		AVLTree< int > avl_tree_int;
 		AVLTree< double > avl_tree_double;
+		node< int > *temp_int = new node< int >( 0 );
+		node< double > *temp_double = new node< double >( 0.0 );
+
+		static void display( node< int > &record , ostream& os = cout ) {
+			os << "   " << record.getData() << ',' << record.getHeight();
+		}
 };
 
 /*  to use FRIEND_TEST , make sure that
@@ -105,12 +119,98 @@ TEST_F( avlTest , privateContent ) {
 	EXPECT_EQ( avl_tree_int.root , nullptr );
 	EXPECT_EQ( avl_tree_double.root , nullptr );
 
-	// insert
 	avl_tree_int.insertHelper( 66 );
 	avl_tree_double.insertHelper( 66.6 );
 
 	EXPECT_EQ( avl_tree_int.root->getData() , 66 );
 	EXPECT_EQ( avl_tree_double.root->getData() , 66.6 );
+
+	avl_tree_int.insertHelper( 76 );
+	avl_tree_double.insertHelper( 76.6 );
+	avl_tree_int.insertHelper( 86 );
+	avl_tree_double.insertHelper( 86.6 );
+
+	EXPECT_EQ( avl_tree_int.root->getData() , 76 );
+	EXPECT_EQ( avl_tree_double.root->getData() , 76.6 );
+
+	avl_tree_int.clearTreeHelper();
+	avl_tree_double.clearTreeHelper();
+
+	EXPECT_EQ( avl_tree_int.root , nullptr );
+	EXPECT_EQ( avl_tree_double.root , nullptr );
+}
+
+TEST_F( avlTest , search ) {
+	avl_tree_int.insertHelper( 66 );
+	avl_tree_double.insertHelper( 66.6 );
+	avl_tree_int.insertHelper( 76 );
+	avl_tree_double.insertHelper( 76.6 );
+	avl_tree_int.insertHelper( 86 );
+	avl_tree_double.insertHelper( 86.6 );
+
+	EXPECT_TRUE( avl_tree_int.searchHelper( 86 ) );
+	EXPECT_TRUE( avl_tree_double.searchHelper( 86.6 ) );
+}
+
+TEST_F( avlTest , getNumberOfNodes ) {
+	avl_tree_int.insertHelper( 66 );
+	avl_tree_double.insertHelper( 66.6 );
+	avl_tree_int.insertHelper( 76 );
+	avl_tree_double.insertHelper( 76.6 );
+	avl_tree_int.insertHelper( 86 );
+	avl_tree_double.insertHelper( 86.6 );
+
+	EXPECT_EQ( avl_tree_int.getNumberOfNodesHelper() , 3 );
+	EXPECT_GT( avl_tree_double.getNumberOfNodesHelper() , 2 );
+}
+
+TEST_F( avlTest , left_rotation ) {
+	avl_tree_int.insertHelper( 66 );
+	avl_tree_int.insertHelper( 76 );
+	avl_tree_int.insertHelper( 86 );
+
+	oss_level.str( string() );
+	avl_tree_int.levelorderTraversalHelper( display );
+	assert( oss_level && oss_level.str() == "   76,2   66,1   86,1" );
+	oss_level.str( string() );
+}
+
+TEST_F( avlTest , right_rotation ) {
+	avl_tree_int.insertHelper( 50 );
+	avl_tree_int.insertHelper( 20 );
+	avl_tree_int.insertHelper( 10 );
+
+	oss_level.str( string() );
+	avl_tree_int.levelorderTraversalHelper( display );
+	assert( oss_level && oss_level.str() == "   20,2   10,1   50,1" );
+	oss_level.str( string() );
+}
+
+TEST_F( avlTest , right_left_double_rotation ) {
+	avl_tree_int.insertHelper( 20 );
+	avl_tree_int.insertHelper( 4 );
+	avl_tree_int.insertHelper( 26 );
+	avl_tree_int.insertHelper( 3 );
+	avl_tree_int.insertHelper( 9 );
+	avl_tree_int.insertHelper( 15 );
+
+	oss_level.str( string() );
+	avl_tree_int.levelorderTraversalHelper( display );
+	assert( oss_level && oss_level.str() == "   9,3   4,2   20,2   3,1   15,1   26,1" );
+	oss_level.str( string() );
+}
+
+TEST_F( avlTest , left_right_double_rotation ) {
+	avl_tree_int.insertHelper( 66 );
+	avl_tree_int.insertHelper( 76 );
+	avl_tree_int.insertHelper( 86 );
+	avl_tree_int.insertHelper( 96 );
+	avl_tree_int.insertHelper( 90 );
+
+	oss_level.str( string() );
+	avl_tree_int.levelorderTraversalHelper( display );
+	assert( oss_level && oss_level.str() == "   76,3   66,1   90,2   86,1   96,1" );
+	oss_level.str( string() );
 }
 
 GTEST_API_ int main( int argc , char **argv ) {
