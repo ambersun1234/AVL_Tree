@@ -4,7 +4,7 @@
 simple practice of AVL tree
 ### Clone Repo
 ```=1
-git clone https://github.com/ambersun1234/AVL_Tree.git
+git clone --recurse-submodules https://github.com/ambersun1234/AVL_Tree.git
 ```
 ### Compile Source Code
 ```=1
@@ -17,6 +17,8 @@ make
 ```
 ### Testing
 ```=1
+make clean
+make
 make test
 ```
 ### License
